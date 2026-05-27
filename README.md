@@ -212,6 +212,114 @@ PYTHONPATH=python-client python3 -m ai_api_client --use-client-config
 
 客户端启动后会注册到后端，页面上可以在“在线客户端”和 Agent 相关页面看到在线状态。
 
+## 标准技能
+
+项目内置四个标准技能，位于 `skills/` 目录。它们用于把 Agent 会话和 ai-api 后端、项目规范、项目 Markdown、项目知识库连接起来。
+
+| 技能 | 作用 | 典型使用场景 |
+| --- | --- | --- |
+| `ai-api-agent-integration` | ai-api 协作中台接入技能 | 查询项目、Agent、需求、子任务、链路、会话，并回写任务执行结果 |
+| `project-markdown-workspace` | 项目 Markdown 工作区技能 | 将服务端 Markdown 配置同步到本地 `md-files`，或把本地 Markdown 回传到服务端 |
+| `project-development-documents` | 项目开发文档上下文技能 | 按项目和 Agent 角色动态读取通用规范、开发规范、测试规范、运维规范等上下文 |
+| `project-knowledge-language-search` | 项目知识库自然语言检索技能 | 通过 MCP SSE 或 HTTP 接口检索项目储备知识和相似经验 |
+
+### 关键配置
+
+`ai-api-agent-integration` 负责连接 ai-api 任务协作能力，关键配置是工作目录、项目、Agent 和后端地址：
+
+```json
+{
+  "workspaces": [
+    {
+      "workspaceDir": "/absolute/path/to/workspace",
+      "projectCode": "ai-api",
+      "agentCode": "ce-main-agent",
+      "agentName": "CE Main Agent",
+      "agentEngineType": "CODEX",
+      "agentRole": "DEVELOPER",
+      "baseUrl": "http://localhost:8080"
+    }
+  ]
+}
+```
+
+配置文件：`skills/ai-api-agent-integration/skill-config.json`
+
+`project-markdown-workspace` 负责把服务端项目 Markdown 配置同步到本地工作区，关键配置是工作目录、项目、Agent 角色和后端地址：
+
+```json
+{
+  "workspaces": [
+    {
+      "workspaceDir": "/absolute/path/to/workspace",
+      "projectCode": "ai-api",
+      "agentRole": "DEVELOPER",
+      "url": "http://localhost:8080"
+    }
+  ]
+}
+```
+
+配置文件：`skills/project-markdown-workspace/skill-config.json`
+
+`project-development-documents` 负责按项目和 Agent 角色读取规范上下文，关键配置是工作目录、项目、Agent 角色和后端地址：
+
+```json
+{
+  "workspaces": [
+    {
+      "workspaceDir": "/absolute/path/to/workspace",
+      "projectCode": "ai-api",
+      "agentRole": "DEVELOPER",
+      "url": "http://localhost:8080"
+    }
+  ]
+}
+```
+
+配置文件：`skills/project-development-documents/skill-config.json`
+
+`project-knowledge-language-search` 负责检索项目储备知识，关键配置是后端地址：
+
+```json
+{
+  "url": "http://127.0.0.1:8080"
+}
+```
+
+配置文件：`skills/project-knowledge-language-search/skill-config.json`
+
+如果 Agent 支持 MCP SSE，可以额外配置项目知识库 MCP：
+
+```json
+{
+  "mcpServers": {
+    "ai-api-project-knowledge": {
+      "type": "sse",
+      "url": "http://127.0.0.1:8080/api/mcp/project-knowledge/sse"
+    }
+  }
+}
+```
+
+最关键的是保持 `workspaceDir` 指向实际工作目录，`projectCode` 和 `agentCode` 与后端页面中的配置一致，`agentRole` 与该 Agent 的职责一致，`baseUrl` / `url` 指向 Java 后端地址。
+
+配置项说明：
+
+| 配置项 | 适用技能 | 说明 |
+| --- | --- | --- |
+| `workspaces` | 前三个技能 | 工作区配置列表。一个技能可以配置多个工作目录，运行时会按当前目录匹配最合适的一项。 |
+| `workspaceDir` | 前三个技能 | 本机 Agent 工作目录，必须使用绝对路径。 |
+| `projectCode` | 前三个技能 | 后端项目编码，需要与项目管理页面中的项目编码一致。 |
+| `agentCode` | `ai-api-agent-integration` | 后端 Agent 编号，需要与 Agent 管理页面中的编号一致。 |
+| `agentName` | `ai-api-agent-integration` | Agent 展示名称，用于初始化或对齐 Agent 信息。 |
+| `agentEngineType` | `ai-api-agent-integration` | Agent 执行引擎，可选 `CODEX`、`QODER`、`CLAUDE`。 |
+| `agentRole` | 前三个技能 | Agent 角色，可选 `MAIN`、`DEVELOPER`、`TESTER`、`OPS`、`REVIEWER`。 |
+| `baseUrl` | `ai-api-agent-integration` | Java 后端地址，例如 `http://localhost:8080`。 |
+| `url` | 其他三个技能 | Java 后端地址，例如 `http://localhost:8080` 或 `http://127.0.0.1:8080`。 |
+| `mcpServers.ai-api-project-knowledge.type` | MCP 配置 | MCP 传输类型，当前使用 `sse`。 |
+| `mcpServers.ai-api-project-knowledge.url` | MCP 配置 | 项目知识库 MCP SSE 地址，格式为 `{后端地址}/api/mcp/project-knowledge/sse`。 |
+
 ## 常用启动顺序
 
 1. 启动 MySQL。
@@ -237,22 +345,3 @@ PYTHONPATH=python-client python3 -m ai_api_client --use-client-config
 
 AI 模型 API Key、图片模型配置、缺陷平台账号等业务配置建议在系统页面中维护，不要写入代码仓库。
 
-## Git 提交说明
-
-本仓库忽略了以下本机或构建产物：
-
-- `target/`
-- `frontend/node_modules/`
-- `frontend/dist/`
-- `state/`
-- Python `__pycache__`、虚拟环境
-- `python-client/client-config.json`
-- IDE 和本机 Agent 配置
-
-提交代码前建议执行：
-
-```bash
-git status
-git add README.md .gitignore src/main/resources/application.yml
-git commit -m "docs: add deployment readme"
-```
