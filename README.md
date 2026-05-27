@@ -1,3 +1,6 @@
+> One developer. Multiple machines. Coordinated AI execution.
+> 一个开发者，多台机器，统一协同的 AI 执行系统。
+
 # World
 
 [中文说明](README_CN.md) | [English README](README_EN.md)
