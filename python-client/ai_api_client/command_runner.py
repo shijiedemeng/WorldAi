@@ -519,8 +519,16 @@ class ClientCommandRunner:
                 client = QoderAcpClient(acp_command)
                 client.initialize()
                 self.acp_clients[agent_config.agent_code] = client
+        elif "claude" in worker_command_name:
+            from .cli_tools.acp import ClaudeAcpClient
+
+            client = self.acp_clients.get(agent_config.agent_code)
+            if not isinstance(client, ClaudeAcpClient) or is_dead_acp_client(client):
+                client = ClaudeAcpClient(acp_command)
+                client.initialize()
+                self.acp_clients[agent_config.agent_code] = client
         else:
-            raise ValueError("ACP session currently supports qoder or codex CLI only")
+            raise ValueError("ACP session currently supports qoder, codex or claude CLI only")
         return self.acp_clients[agent_config.agent_code].create_session(workspace_dir).session_id
 
     def run_acp_prompt(
@@ -678,8 +686,11 @@ def acp_command_from_worker_command(worker_command: str) -> str:
     elif "qoder" in worker_command_name:
         if "--acp" not in argv:
             argv.append("--acp")
+    elif "claude" in worker_command_name:
+        if "--acp" not in argv:
+            argv.append("--acp")
     else:
-        raise ValueError("ACP session currently supports qoder or codex CLI only")
+        raise ValueError("ACP session currently supports qoder, codex or claude CLI only")
     return " ".join(shlex.quote(item) for item in argv)
 
 

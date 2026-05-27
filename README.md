@@ -2,9 +2,9 @@
 
 [中文说明](README_CN.md) | [English README](README_EN.md)
 
-⭐ World
+⭐ World ai
 
-World 是一个分布式 AI 编排系统，允许单个开发者跨多台机器统一调度和协同本地编码智能体。
+World ai 是一个分布式 AI 编排系统，允许单个开发者跨多台机器统一调度和协同本地编码智能体。
 
 它能够实现：
 
@@ -17,9 +17,9 @@ World 是一个分布式 AI 编排系统，允许单个开发者跨多台机器�
 一句话总结：
 一个开发者，多台机器，统一协同的 AI 执行系统。
 
-⭐ World
+⭐ World ai
 
-World is a distributed AI orchestration system that allows a single developer to coordinate multiple local coding agents across different machines.
+World ai is a distributed AI orchestration system that allows a single developer to coordinate multiple local coding agents across different machines.
 It enables:
 
 * Multi-agent task orchestration across local environments

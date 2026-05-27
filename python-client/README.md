@@ -68,6 +68,7 @@ python3 -m ai_api_client --client-config /path/to/client-config.json --use-clien
 - `agents[].worker_command`：该 Agent 的启动命令，例如 `codex`、`claude` 或自定义脚本。若该 Agent 走 ACP，会根据命令自动选择对应协议：
   - `qoder` / `qodercli` 会走 `qodercli --acp`
   - `codex` 会走 `codex app-server --listen stdio://`
+  - `claude` / `claude-code` 会走 `claude --acp` 或 `claude-code --acp`
 
 ## 常用命令
 
