@@ -1,0 +1,16 @@
+{
+  "workspaces": [
+    {
+      "workspaceDir": "/Users/zhaoyiming/Desktop/项目/ai-api",
+      "projectCode": "ai-api",
+      "agentRole": "DEVELOPER",
+      "url": "http://localhost:8080"
+    },
+    {
+      "workspaceDir": "/Users/zhaoyiming/Desktop/项目/ce",
+      "projectCode": "py-ce",
+      "agentRole": "DEVELOPER",
+      "url": "http://localhost:8080"
+    }
+  ]
+}

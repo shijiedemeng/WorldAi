@@ -1,0 +1,26 @@
+{
+  "client_code": "local-macbook",
+  "client_name": "本机客户端",
+  "server": {
+    "protocol": "http",
+    "host": "127.0.0.1",
+    "port": 8080,
+    "api_base": ""
+  },
+  "app_version": "python-client",
+  "mcp": {
+    "enabled": false,
+    "server_url": "http://127.0.0.1:8080/api/mcp",
+    "max_file_bytes": 200000,
+    "max_entries": 200
+  },
+  "agents": [
+    {
+      "agent_code": "ce-main-agent",
+      "enabled": true,
+      "workspace_dir": "/Users/zhaoyiming/Desktop/项目/ai-api",
+      "skills_dir": "/Users/zhaoyiming/Desktop/项目/ai-api/skills",
+      "worker_command": "codex exec --sandbox workspace-write --ask-for-approval never --skip-git-repo-check {prompt}"
+    }
+  ]
+}

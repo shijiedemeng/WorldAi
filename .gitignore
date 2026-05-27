@@ -1,0 +1,115 @@
+# Java class files
+*.class
+**/target/
+
+# JRebel File
+rebel.xml
+**/rebel.xml
+
+# Log Files
+*.log
+**/*.log
+logs
+
+# Intellij
+*.iml
+**/*.iml
+
+# Keystore files
+#*.jks
+#gradle wrapper
+gradle/
+
+#some local files
+**/.settings/
+**/.DS_Store
+.DS_Store
+**/.idea/
+.idea/
+/web/*.iml
+
+#git
+node_modules
+dist
+.git
+.git.broken.bak
+
+#test
+test-output
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+target
+bin
+.project
+.classpath
+.settings
+
+sw-pom.xml
+*.iml
+test-config.xml
+.idea
+/.gradle/
+/gradle/
+*.bat
+/gradlew
+**/build/
+
+.qoder
+
+# OSX
+# Icon must end with two \r
+Icon
+
+
+._*
+.DS_Store
+.AppleDouble
+.LSOverride
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+/.sonar/
+sonar-project.properties
+
+!/.mvn/wrapper/maven-wrapper.jar
+*.versionsBackup
+/.mvn/wrapper/
+/HELP.md
+/mvnw
+/mvnw.cmd
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.python-version
+
+# Local runtime config and generated state
+python-client/client-config.json
+state/
+milvusClient/*.db
+milvusClient/**/*.db
+
+# Local agent/editor state
+.claude/
+.learnings/
+.ai-api-md-versions.json

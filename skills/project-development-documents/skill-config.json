@@ -1,0 +1,14 @@
+{
+  "workspaces": [
+    {
+      "workspaceDir": "/Users/zhaoyiming/Desktop/项目/ai-api",
+      "projectCode": "ai-api",
+      "url": "http://localhost:8080"
+    },
+    {
+      "workspaceDir": "/Users/zhaoyiming/Desktop/项目/ce",
+      "projectCode": "py-ce",
+      "url": "http://localhost:8080"
+    }
+  ]
+}

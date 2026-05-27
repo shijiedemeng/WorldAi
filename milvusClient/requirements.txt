@@ -1,0 +1,2 @@
+setuptools<81
+pymilvus[milvus_lite]>=2.4.10

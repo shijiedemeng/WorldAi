@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: ai-api
+  datasource:
+    url: ${DB_URL:jdbc:mysql://127.0.0.1:3306/ai-api?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: false
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+
+server:
+  port: ${SERVER_PORT:8080}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+ai:
+  image:
+    storage-dir: ${AI_IMAGE_STORAGE_DIR:./state/ai-images}
+    response-storage-dir: ${AI_IMAGE_RESPONSE_STORAGE_DIR:./state/ai-image-responses}
+    connect-timeout-ms: ${AI_IMAGE_CONNECT_TIMEOUT_MS:60000}
+    read-timeout-ms: ${AI_IMAGE_READ_TIMEOUT_MS:3600000}
+  knowledge:
+    vector-base-url: ${AI_KNOWLEDGE_VECTOR_BASE_URL:http://127.0.0.1:8091}
+    connect-timeout-ms: ${AI_KNOWLEDGE_CONNECT_TIMEOUT_MS:10000}
+    read-timeout-ms: ${AI_KNOWLEDGE_READ_TIMEOUT_MS:60000}

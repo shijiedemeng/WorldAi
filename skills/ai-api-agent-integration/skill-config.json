@@ -1,0 +1,22 @@
+{
+  "workspaces": [
+    {
+      "workspaceDir": "/Users/zhaoyiming/Desktop/项目/ai-api",
+      "projectCode": "ai-api",
+      "agentCode": "ce-main-agent",
+      "agentName": "CE Main Agent",
+      "agentEngineType": "CODEX",
+      "agentRole": "DEVELOPER",
+      "baseUrl": "http://localhost:8080"
+    },
+    {
+      "workspaceDir": "/Users/zhaoyiming/Desktop/项目/ce",
+      "projectCode": "cs",
+      "agentCode": "ce-qoder-main-agent",
+      "agentName": "ce-qoder-main-agent",
+      "agentEngineType": "CODEX",
+      "agentRole": "DEVELOPER",
+      "baseUrl": "http://localhost:8080"
+    }
+  ]
+}
